@@ -19,7 +19,7 @@ TELEGRAM_CHAT_ID = "7360818672"
 
 # --- 🔮 Gemini API (ใส่ API Key ของคุณ หรือใช้ st.secrets["GEMINI_API_KEY"]) ---
 GEMINI_API_KEY = "AQ.Ab8RN6JKkNy4jBkY8yPTXUfOQcT44b8KwmxD6s6DeZlv5y1T-g"
-GEMINI_MODEL = "gemini-3.5-flash"
+GEMINI_MODEL = "gemini-2.0-flash"
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 # ==========================================================
 
@@ -307,7 +307,7 @@ if not df.empty and len(df) > 50:
 
     st.info(f"🔊 Forcing: **{FORCING_FREQ} Hz** ±{BAND_HZ} Hz")
     
-    c1, c2, c3 = st.columns(3)
+    c1, c2 = st.columns(2)
     with c1:
         if st.button("🔒 ล็อก Baseline (ลำโพงเปิด + น็อตครบ)", type="primary", key="btn_lock"):
             for i in range(3):
@@ -329,8 +329,6 @@ if not df.empty and len(df) > 50:
                 st.session_state[f'consec_dir{i}'] = None
                 st.session_state.prev_status[i] = 'green'
             st.rerun()
-    with c3:
-        gemini_clicked = st.button("🤖 วิเคราะห์เชิงลึกด้วย Gemini AI", key="btn_gemini")
 
     st.markdown("---")
     cols = st.columns(3)
@@ -384,6 +382,8 @@ if not df.empty and len(df) > 50:
     st.markdown("---")
     st.subheader("🤖 การวิเคราะห์เชิงลึกด้วย Gemini AI")
 
+    gemini_clicked = st.button("🤖 วิเคราะห์เชิงลึกด้วย Gemini AI", key="btn_gemini", type="primary")
+
     if gemini_clicked:
         rms_list = [st.session_state[f'rms_ch{i}'] for i in range(3)]
         base_list = [st.session_state[f'base_amp{i}'] for i in range(3)]
@@ -403,7 +403,7 @@ if not df.empty and len(df) > 50:
     if st.session_state.gemini_result:
         st.markdown(st.session_state.gemini_result)
     if not gemini_clicked and not st.session_state.gemini_result and not st.session_state.gemini_error:
-        st.caption("กดปุ่ม '🤖 วิเคราะห์เชิงลึกด้วย Gemini AI' ด้านบนเพื่อขอบทวิเคราะห์แบบเชิงลึก (ต้องเชื่อมต่ออินเทอร์เน็ตและใส่ API Key ในแถบด้านซ้าย)")
+        st.caption("กดปุ่ม '🤖 วิเคราะห์เชิงลึกด้วย Gemini AI' ด้านบนเพื่อขอบทวิเคราะห์แบบเชิงลึก (ต้องเชื่อมต่ออินเทอร์เน็ตและใส่ API Key ในแถบด้านซ้าย)  \n💡 ถ้าไม่เห็นปุ่ม ให้ตรวจสอบว่าเบราว์เซอร์ไม่ได้ซ่อน/ตัดขอบจอ หรือลองรีเฟรชหน้าเว็บ")
 
     st.markdown("---")
     with st.expander("🤖 สถานะ Cloud Function (ฝั่งแจ้งเตือน Telegram)"):
