@@ -19,7 +19,7 @@ TELEGRAM_CHAT_ID = "7360818672"
 
 # --- 🔮 Gemini API (ใส่ API Key ของคุณ หรือใช้ st.secrets["GEMINI_API_KEY"]) ---
 GEMINI_API_KEY = "AQ.Ab8RN6JKkNy4jBkY8yPTXUfOQcT44b8KwmxD6s6DeZlv5y1T-g"
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-3.5-flash"
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 # ==========================================================
 
