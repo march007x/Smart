@@ -19,7 +19,7 @@ TELEGRAM_BOT_TOKEN = st.secrets.get("TELEGRAM_BOT_TOKEN", os.environ.get("TELEGR
 TELEGRAM_CHAT_ID = st.secrets.get("TELEGRAM_CHAT_ID", os.environ.get("TELEGRAM_CHAT_ID", ""))
 
 # --- Google Gemini (ฟรี) API key: อ่านจาก secrets/env เท่านั้น ห้าม hardcode ---
-GEMINI_API_KEY = st.secrets.get("AQ.Ab8RN6JKkNy4jBkY8yPTXUfOQcT44b8KwmxD6s6DeZlv5y1T-g", os.environ.get("AQ.Ab8RN6JKkNy4jBkY8yPTXUfOQcT44b8KwmxD6s6DeZlv5y1T-g", ""))
+GEMINI_API_KEY = st.secrets.get("AIzaSyDVnrhd3f9ygGoCp9NxuPsc00HYFaM8oNc", os.environ.get("AIzaSyDVnrhd3f9ygGoCp9NxuPsc00HYFaM8oNc", ""))
 AI_MODEL = "gemini-2.5-flash"  # โมเดล free-tier ที่แนะนำ (ตรวจสอบชื่อล่าสุดได้ที่ ai.google.dev)
 # ==========================================================
 
