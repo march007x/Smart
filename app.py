@@ -17,9 +17,9 @@ STATE_URL = 'https://smart-vibe-f944b-default-rtdb.asia-southeast1.firebasedatab
 TELEGRAM_BOT_TOKEN = "8816324739:AAHZEKbjTyvLUORVd97t5kzFWy7pIxqFEhY"
 TELEGRAM_CHAT_ID = "7360818672"
 
-# --- 🔮 Gemini API (ใส่ API Key ของคุณ หรือใช้ st.secrets["GEMINI_API_KEY"]) ---
-GEMINI_API_KEY = "AQ.Ab8RN6JKkNy4jBkY8yPTXUfOQcT44b8KwmxD6s6DeZlv5y1T-g"
-GEMINI_MODEL = "gemini-2.5-flash"
+# --- 🔮 Gemini API (ใส่ API Key จาก https://aistudio.google.com/app/apikey ตรงนี้) ---
+GEMINI_API_KEY = "AIzaSyB8Ouh0J6Vy6yrTuxrvL1oD_SSy0B3xTC0"  # <<< แก้บรรทัดนี้เป็น API Key จริงของคุณ
+GEMINI_MODEL = "gemini-2.0-flash"
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 # ==========================================================
 
@@ -65,13 +65,6 @@ with st.sidebar:
     R2Y = st.slider("🔴→🟡", 50, 99, 70, 1)
 
     st.markdown("---")
-    st.header("🔮 Gemini AI")
-    gemini_key_input = st.text_input(
-        "Gemini API Key",
-        value=GEMINI_API_KEY if "ใส่_" not in GEMINI_API_KEY else "",
-        type="password",
-        help="ขอ API Key ฟรีได้ที่ https://aistudio.google.com/app/apikey"
-    )
 
 # ===== Telegram Notification Function =====
 def send_telegram_notification(message):
@@ -246,8 +239,9 @@ def build_gemini_prompt(floor_names, rms_list, amps, base_list, health, status_l
 
 def call_gemini_analysis(prompt_text, api_key):
     """เรียก Gemini API (REST) เพื่อขอบทวิเคราะห์เชิงลึก ต้องออนไลน์"""
+    api_key = (api_key or "").strip()
     if not api_key:
-        return None, "ยังไม่ได้ใส่ Gemini API Key (ใส่ในแถบด้านซ้าย)"
+        return None, "ยังไม่ได้ใส่ Gemini API Key ในแถบด้านซ้าย — ขอฟรีได้ที่ https://aistudio.google.com/app/apikey (ต้องเป็น API Key จาก AI Studio ไม่ใช่ OAuth Client จาก Cloud Console)"
 
     headers = {"Content-Type": "application/json"}
     body = {
@@ -262,6 +256,12 @@ def call_gemini_analysis(prompt_text, api_key):
             data=json.dumps(body),
             timeout=25
         )
+        if res.status_code == 401 or res.status_code == 403:
+            return None, (
+                f"Gemini API error {res.status_code}: API Key ไม่ถูกต้องหรือไม่มีสิทธิ์ใช้งาน "
+                f"กรุณาตรวจสอบว่าใส่ API Key จาก https://aistudio.google.com/app/apikey ถูกต้องครบถ้วน "
+                f"(ไม่มีช่องว่างเกิน ไม่ใช่ OAuth Client) — รายละเอียด: {res.text[:200]}"
+            )
         if res.status_code != 200:
             return None, f"Gemini API error {res.status_code}: {res.text[:300]}"
 
@@ -394,7 +394,7 @@ if not df.empty and len(df) > 50:
             floor_names, rms_list, amps, base_list, health, status_list, hist_lists, result
         )
         with st.spinner("กำลังเชื่อมต่อ Gemini AI เพื่อวิเคราะห์ข้อมูล... (ต้องออนไลน์)"):
-            answer, err = call_gemini_analysis(prompt_text, gemini_key_input)
+            answer, err = call_gemini_analysis(prompt_text, GEMINI_API_KEY)
         st.session_state.gemini_result = answer
         st.session_state.gemini_error = err
 
@@ -403,7 +403,7 @@ if not df.empty and len(df) > 50:
     if st.session_state.gemini_result:
         st.markdown(st.session_state.gemini_result)
     if not gemini_clicked and not st.session_state.gemini_result and not st.session_state.gemini_error:
-        st.caption("กดปุ่ม '🤖 วิเคราะห์เชิงลึกด้วย Gemini AI' ด้านบนเพื่อขอบทวิเคราะห์แบบเชิงลึก (ต้องเชื่อมต่ออินเทอร์เน็ตและใส่ API Key ในแถบด้านซ้าย)  \n💡 ถ้าไม่เห็นปุ่ม ให้ตรวจสอบว่าเบราว์เซอร์ไม่ได้ซ่อน/ตัดขอบจอ หรือลองรีเฟรชหน้าเว็บ")
+        st.caption("กดปุ่ม '🤖 วิเคราะห์เชิงลึกด้วย Gemini AI' ด้านบนเพื่อขอบทวิเคราะห์แบบเชิงลึก (ต้องเชื่อมต่ออินเทอร์เน็ต)")
 
     st.markdown("---")
     with st.expander("🤖 สถานะ Cloud Function (ฝั่งแจ้งเตือน Telegram)"):
