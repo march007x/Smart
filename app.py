@@ -15,7 +15,7 @@ st_autorefresh(interval=3000, limit=None, key="smartvibe_autorefresh")
 
 # --- 2. การจัดการคีย์และการตั้งค่าระบบหลังบ้าน ---
 # ฝังคีย์ที่คุณส่งมาโดยตรงในโค้ด เพื่อให้ REST API เรียกใช้งานได้ทันที 
-GEMINI_API_KEY = "AQ.Ab8RN6JKkNy4jBkY8yPTXUfOQcT44b8KwmxD6s6DeZlv5y1T-g"
+GEMINI_API_KEY = "GEMINI_API_KEY = "AIzaSy_Ab8RN6JKkNy4jBkY8yPTXUfOQcT44b8KwmxD6s6DeZlv5y1T-g"
 
 # สำหรับค่าระบบอื่นๆ สามารถดึงผ่าน Secrets หรือใช้ค่าจำลอง (Mock) ไปก่อนได้ครับ
 FIREBASE_URL = st.secrets.get("FIREBASE_URL", "https://smart-vibe-f944b-default-rtdb.asia-southeast1.firebasedatabase.app/SmartVibe/History3F.json")
