@@ -26,7 +26,7 @@ except Exception:
     FIREBASE_URL = "https://example-default.firebaseio.com/.json"
     TELEGRAM_BOT_TOKEN = "MOCK_TOKEN"
     CHAT_ID = "MOCK_ID"
-    GEMINI_API_KEY = "MOCK_KEY"
+    GEMINI_API_KEY = "AQ.Ab8RN6IznGVhDIaboHs6p6bCJaFh8Bx9CQFsxGnOTvw-wF0dAQ"
 
 # --- 3. การเริ่มต้นระบบตัวแปรคงที่ (Session State) ---
 if "baseline_locked" not in st.session_state:
