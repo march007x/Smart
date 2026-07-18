@@ -58,9 +58,12 @@ def calculate_welch_fft(signal_data, fs=100):
     
     # คำนวณ Band Power ย่าน 8.0 - 9.0 Hz (รอบๆ 8.5 Hz ที่เป็นความถี่เป้าหมาย)
     idx_band = (f >= 8.0) & (f <= 9.0)
-    band_power = np.trapz(Pxx[idx_band], f[idx_band]) if np.any(idx_band) else 0.0
+    
+    # 🔥 แก้ไขตรงนี้: เปลี่ยนจาก np.trapz เป็น np.trapezoid
+    band_power = np.trapezoid(Pxx[idx_band], f[idx_band]) if np.any(idx_band) else 0.0
+    
     return peak_freq, band_power, f, Pxx
-
+    
 # --- 5. แถบควบคุมด้านข้าง (Sidebar) & โหมดทดสอบระบบ ---
 st.sidebar.title("🏢 SmartVibe Controller")
 st.sidebar.write("ระบบวิเคราะห์ความสั่นสะเทือนโครงสร้าง 3 ชั้น")
