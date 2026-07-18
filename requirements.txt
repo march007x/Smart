@@ -1,7 +1,8 @@
 streamlit
-pandas
-numpy
-requests
-scipy
 streamlit-autorefresh
+numpy
+pandas
+scipy
+matplotlib
+requests
 google-genai
