@@ -20,7 +20,7 @@ try:
     FIREBASE_URL = st.secrets["FIREBASE_URL"]
     TELEGRAM_BOT_TOKEN = st.secrets["TELEGRAM_BOT_TOKEN"]
     CHAT_ID = st.secrets.get("TELEGRAM_CHAT_ID", "")  # ใส่ ID กลุ่ม/แชท Telegram ของคุณ
-    GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
+    GEMINI_API_KEY = st.secrets["AQ.Ab8RN6IznGVhDIaboHs6p6bCJaFh8Bx9CQFsxGnOTvw-wF0dAQ"]
 except Exception:
     # Fallback เผื่อทดสอบในเครื่องและยังไม่ได้ตั้งค่า Secrets
     FIREBASE_URL = "https://example-default.firebaseio.com/.json"
