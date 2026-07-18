@@ -19,7 +19,7 @@ TELEGRAM_CHAT_ID = "7360818672"
 
 # --- 🔮 Gemini API (ใส่ API Key จาก https://aistudio.google.com/app/apikey ตรงนี้) ---
 GEMINI_API_KEY = "AIzaSyB8Ouh0J6Vy6yrTuxrvL1oD_SSy0B3xTC0"  # <<< แก้บรรทัดนี้เป็น API Key จริงของคุณ
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-3.5-flash"
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 # ==========================================================
 
